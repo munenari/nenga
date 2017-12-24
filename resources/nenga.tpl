@@ -7,22 +7,24 @@
 </head>
 <body>
 
-{{ range  }}
+{{ range .Destinations }}
 <section class="sheet">
-	<p class="郵便番号">1234567</p>
-	<p class="住所">鹿児島県鹿児島市○○町一―一<br />桜島マンション一〇一号</p>
+	<p class="郵便番号">{{ .Postcode }}</p>
+	<p class="住所">{{ noescape .Address }}</p>
 	<div class="宛名">
-		<p>山田　太郎　様</p>
-		<p>　　　花子　様</p>
+		{{ range .Names }}
+			<p>{{ . }}</p>
+		{{ end }}
 	</div>
 	<div class="差出人住所氏名">
-		<p class="差出人住所">{{ .Sender.Address }}</p>
-		{{ range .Sender.Names }}
+		<p class="差出人住所">{{ noescape $.Sender.Address }}</p>
+		{{ range $.Sender.Names }}
 			<p class="差出人">{{ . }}</p>
 		{{ end }}
 	</div>
-		<p class="差出人郵便番号">{{ .Sender.Postcode }}</p>
+		<p class="差出人郵便番号">{{ $.Sender.Postcode }}</p>
 </section>
+{{ end }}
 
 </body>
 </html>

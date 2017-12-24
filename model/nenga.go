@@ -5,3 +5,9 @@ type Nenga struct {
 	Destinations []Destination
 	Sender       Sender
 }
+
+type atenaAbstract struct {
+	Names    []string
+	Postcode string
+	Address  string
+}

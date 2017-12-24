@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -14,29 +15,19 @@ import (
 
 var db *sqlx.DB
 
+const nengaTpl = "resources/nenga.tpl"
+
 func main() {
 	initDB()
-	sender, err := model.Sender{}.Get(db)
-	if err != nil {
-		log.Println("failed to load sender information")
-		log.Fatalln(err)
-	}
-	destinations, err := model.Destination{}.All(db)
-	if err != nil {
-		log.Println("failed to load destinations information")
-		log.Fatalln(err)
-	}
-	nenga := model.Nenga{
-		Sender:       *sender,
-		Destinations: *destinations,
-	}
+
+	nenga := model.Nenga{}.MustGet(db)
 
 	funcMap := template.FuncMap{
 		"noescape": func(str string) template.HTML {
 			return template.HTML(str)
 		},
 	}
-	tpl, err := template.New("nenga.tpl").Funcs(funcMap).ParseFiles("resources/nenga.tpl")
+	tpl, err := template.New(filepath.Base(nengaTpl)).Funcs(funcMap).ParseFiles(nengaTpl)
 	if err != nil {
 		log.Fatalln(err)
 	}

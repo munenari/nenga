@@ -1,60 +1,42 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"html/template"
 	"log"
 	"os"
 
+	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
 	"github.com/munenari/nenga/model"
 )
 
+var db *sqlx.DB
+
 func main() {
-
-	nenga := model.Nenga{
-		Destinations: []model.Destination{
-			{
-				Names: []string{
-					"山田　太郎　様",
-					"　　　花子　様",
-				},
-				Postcode: "1234567",
-				Address:  "鹿児島県鹿児島市○○町一―一<br>桜島マンション一〇一号",
-			},
-			{
-				Names: []string{
-					"山田　太郎2　様",
-					"　　　花子2　様",
-				},
-				Postcode: "1234569",
-				Address:  "鹿児島県鹿児島市○○a町一―一<br>桜島マンション一〇一号",
-			},
-			{
-				Names: []string{
-					"山田　太郎3　様",
-				},
-				Postcode: "1234569",
-				Address:  "鹿児島県鹿児島市○○a町一―一<br>桜島マンション一〇一号",
-			},
-		},
-		Sender: model.Sender{
-			Names: []string{
-				"山田　一郎",
-				"　　　二郎",
-			},
-			Postcode: "1234568",
-			Address:  "鹿児島市○○町一―二<br>霧島コーポ二〇二",
-		},
+	initDB()
+	sender, err := model.Sender{}.Get(db)
+	if err != nil {
+		log.Println("failed to load sender information")
+		log.Fatalln(err)
 	}
-
-	noescape := func(str string) template.HTML {
-		return template.HTML(str)
+	destinations, err := model.Destination{}.All(db)
+	if err != nil {
+		log.Println("failed to load destinations information")
+		log.Fatalln(err)
+	}
+	nenga := model.Nenga{
+		Sender:       *sender,
+		Destinations: *destinations,
 	}
 
 	funcMap := template.FuncMap{
-		"noescape": noescape,
+		"noescape": func(str string) template.HTML {
+			return template.HTML(str)
+		},
 	}
 	tpl, err := template.New("nenga.tpl").Funcs(funcMap).ParseFiles("resources/nenga.tpl")
-	// tpl, err := template.ParseFiles("resources/nenga.tpl")
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -62,4 +44,23 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+}
+
+func initDB() {
+	dbHost := flag.String("dbhost", "localhost", "db host name (default: localhost)")
+	dbPort := flag.Int("dbport", 5432, "db port (default: 5432)")
+	dbUser := flag.String("dbuser", "postgres", "db username (default: postgres)")
+	dbPassword := flag.String("dbpassword", "", "db password")
+	dbName := flag.String("dbname", "nenga", "database name (default: nenga)")
+	dbOptions := flag.String("dboptions", "", "db connection options (key=value), separated with space (default: none)")
+	flag.Parse()
+
+	dataSource := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s %s",
+		*dbHost,
+		*dbPort,
+		*dbUser,
+		*dbPassword,
+		*dbName,
+		*dbOptions)
+	db = sqlx.MustConnect("postgres", dataSource)
 }

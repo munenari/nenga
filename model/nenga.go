@@ -1,5 +1,12 @@
 package model
 
+import (
+	"time"
+
+	"github.com/google/uuid"
+	"github.com/lib/pq"
+)
+
 // Nenga seems many nenga post cards
 type Nenga struct {
 	Destinations []Destination
@@ -7,7 +14,11 @@ type Nenga struct {
 }
 
 type atenaAbstract struct {
-	Names    []string
-	Postcode string
-	Address  string
+	ID         uuid.UUID      `db:"id"`
+	Names      pq.StringArray `db:"names"`
+	Postcode   string         `db:"postcode"`
+	Address    string         `db:"address"`
+	Deleted    bool           `db:"deleted"`
+	InsertedAt time.Time      `db:"inserted_at"`
+	IsSender   bool           `db:"is_sender"`
 }

@@ -43,6 +43,7 @@ func initDB() {
 	dbUser := flag.String("dbuser", "postgres", "db username (default: postgres)")
 	dbPassword := flag.String("dbpassword", "", "db password")
 	dbName := flag.String("dbname", "nenga", "database name (default: nenga)")
+	dbTable := flag.String("dbtable", "ab_atena", "database table name (default: ab_atena)")
 	dbOptions := flag.String("dboptions", "", "db connection options (key=value), separated with space (default: none)")
 	flag.Parse()
 
@@ -54,4 +55,5 @@ func initDB() {
 		*dbName,
 		*dbOptions)
 	db = sqlx.MustConnect("postgres", dataSource)
+	model.AtenaTableName = *dbTable
 }

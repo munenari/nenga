@@ -10,7 +10,7 @@ func (Sender) Get(db *sqlx.DB) (*Sender, error) {
 	x := new(Sender)
 	q := `
 select *
-from ab_atena a
+from ` + AtenaTableName + ` a
 where a.is_sender = true
 and a.deleted = false
 order by a.inserted_at desc

@@ -9,6 +9,9 @@ import (
 	"github.com/lib/pq"
 )
 
+// AtenaTableName switch by year suffix or so
+var AtenaTableName = "ab_atena"
+
 // Nenga seems many nenga post cards
 type Nenga struct {
 	Destinations []Destination

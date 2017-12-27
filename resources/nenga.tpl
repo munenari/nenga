@@ -47,6 +47,7 @@
 		font-size: 14pt;
 		margin-left: 0px;
 		padding-top: 0px;
+		padding-bottom: 20mm;
 		line-height: 1.5em;
 		writing-mode: vertical-rl;
 		-webkit-writing-mode: vertical-rl;
@@ -63,7 +64,7 @@
 		letter-spacing: 0.1em;
 		position: absolute;
 		top: 30%;
-		left: 50%;
+		left: 55%;
 		-webkit-transform: translateY( -10% ) translateX( -50% );
 		transform: translateY( -10% ) translateX( -50% );
 		writing-mode: vertical-rl;
@@ -74,8 +75,8 @@
 
 	.差出人住所氏名 {
 		position: absolute;
-		top:70mm;
-		left: 10mm;
+		top: 70mm;
+		left: 5mm;
 		writing-mode: vertical-rl;
 		-webkit-writing-mode: vertical-rl;
 		text-orientation: upright;

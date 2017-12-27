@@ -10,10 +10,10 @@ func (Destination) All(db *sqlx.DB) (*[]Destination, error) {
 	x := new([]Destination)
 	q := `
 select *
-from ab_atena a
+from ` + AtenaTableName + ` a
 where a.is_sender = false
 and a.deleted = false
-order by a.inserted_at desc`
+order by a.id desc`
 	err := db.Select(x, q)
 	return x, err
 }

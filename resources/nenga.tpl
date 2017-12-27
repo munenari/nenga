@@ -6,6 +6,12 @@
 </head>
 <body>
 <style>
+	@font-face {
+		font-family: 'Noto Serif Japanese';
+		font-style: normal;
+		font-weight: 400;
+		src: url(https://yourfontserver/NotoSerifCJKjp-hinted/NotoSerifCJKjp-Light.otf) format('opentype');
+	}
 	@page {
 		size: 100mm 148mm;
 		margin: 0;
@@ -33,17 +39,17 @@
 
 	.郵便番号 {
 		font-size: 12pt;
-		font-family: "IPAmj明朝";
+		font-family: "Noto Serif Japanese";
 		margin: 0;
 		padding: 0;
 		position: absolute;
 		top: 14mm;
 		left: 46mm;
-		letter-spacing: 4.4mm;
+		letter-spacing: 5.0mm;
 	}
 
 	.住所 {
-		font-family: "IPAmj明朝";
+		font-family: "Noto Serif Japanese";
 		font-size: 14pt;
 		margin-left: 0px;
 		padding-top: 0px;
@@ -59,12 +65,12 @@
 	}
 
 	.宛名 {
-		font-family: "IPAmj明朝";
+		font-family: "Noto Serif Japanese";
 		font-size: 22pt;
 		letter-spacing: 0.1em;
 		position: absolute;
 		top: 30%;
-		left: 55%;
+		left: 57%;
 		-webkit-transform: translateY( -10% ) translateX( -50% );
 		transform: translateY( -10% ) translateX( -50% );
 		writing-mode: vertical-rl;
@@ -84,15 +90,15 @@
 	}
 
 	.差出人住所 {
-		font-family: "IPAmj明朝";
+		font-family: "Noto Serif Japanese";
 		font-size: 10pt;
 		margin: 0;
-		padding-left: 0.5em;
+		padding-left: 0.3em;
 	}
 
 	.差出人 {
-		font-family: "IPAmj明朝";
-		font-size: 14pt;
+		font-family: "Noto Serif Japanese";
+		font-size: 12pt;
 		letter-spacing: 0.1em;
 		margin: 0;
 		padding-top: 0.5em;
@@ -100,13 +106,13 @@
 
 	.差出人郵便番号 {
 		font-size: 10pt;
-		font-family: "IPAmj明朝";
+		font-family: "Noto Serif Japanese";
 		margin: 0;
 		padding: 0;
 		position: absolute;
 		top: 124mm;
 		left: 6mm;
-		letter-spacing: 1.8mm;
+		letter-spacing: 2.1mm;
 	}
 
 	@media screen {

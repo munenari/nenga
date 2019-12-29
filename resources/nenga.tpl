@@ -10,7 +10,7 @@
 		font-family: 'Noto Serif Japanese';
 		font-style: normal;
 		font-weight: 400;
-		src: url(https://yourfontserver/NotoSerifCJKjp-hinted/NotoSerifCJKjp-Light.otf) format('opentype');
+		src: url(https://lilac.myhome.cx/fonts/NotoSerifCJKjp-hinted/NotoSerifCJKjp-Light.otf) format('opentype');
 	}
 	@page {
 		size: 100mm 148mm;
@@ -43,9 +43,9 @@
 		margin: 0;
 		padding: 0;
 		position: absolute;
-		top: 14mm;
+		top: 12mm;
 		left: 46mm;
-		letter-spacing: 5.0mm;
+		letter-spacing: 4.8mm;
 	}
 
 	.住所 {
@@ -61,7 +61,7 @@
 		-webkit-text-orientation: upright;
 		position: absolute;
 		top: 30mm;
-		right: 10mm;
+		right: 8mm;
 	}
 
 	.宛名 {
@@ -81,7 +81,7 @@
 
 	.差出人住所氏名 {
 		position: absolute;
-		top: 70mm;
+		top: 50mm;
 		left: 5mm;
 		writing-mode: vertical-rl;
 		-webkit-writing-mode: vertical-rl;
@@ -93,7 +93,6 @@
 		font-family: "Noto Serif Japanese";
 		font-size: 10pt;
 		margin: 0;
-		padding-left: 0.3em;
 	}
 
 	.差出人 {
@@ -101,7 +100,7 @@
 		font-size: 12pt;
 		letter-spacing: 0.1em;
 		margin: 0;
-		padding-top: 0.5em;
+		padding-top: 30mm;
 	}
 
 	.差出人郵便番号 {
@@ -137,16 +136,16 @@
 {{ range .Destinations }}
 <section class="sheet">
 	<p class="郵便番号">{{ .Postcode }}</p>
-	<p class="住所">{{ parseaddress .Address }}</p>
+	<p class="住所">{{ noescape .Address }}</p>
 	<div class="宛名">
 		{{ range .Names }}
-			<p>{{ normtategaki . }}　様</p>
+			<p>{{ . }}　様</p>
 		{{ end }}
 	</div>
 	<div class="差出人住所氏名">
-		<p class="差出人住所">{{ parseaddress $.Sender.Address }}</p>
+		<p class="差出人住所">{{ noescape $.Sender.Address }}</p>
 		{{ range $.Sender.Names }}
-			<p class="差出人">{{ normtategaki . }}</p>
+			<p class="差出人">{{ . }}</p>
 		{{ end }}
 	</div>
 	<p class="差出人郵便番号">{{ $.Sender.Postcode }}</p>

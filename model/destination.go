@@ -13,7 +13,7 @@ select *
 from ` + AtenaTableName + ` a
 where a.is_sender = false
 and a.deleted = false
-order by a.id desc`
+order by a.kind, a.group_name, a.names`
 	err := db.Select(x, q)
 	return x, err
 }

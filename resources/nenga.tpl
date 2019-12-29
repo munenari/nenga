@@ -137,16 +137,16 @@
 {{ range .Destinations }}
 <section class="sheet">
 	<p class="郵便番号">{{ .Postcode }}</p>
-	<p class="住所">{{ noescape .Address }}</p>
+	<p class="住所">{{ parseaddress .Address }}</p>
 	<div class="宛名">
 		{{ range .Names }}
-			<p>{{ . }}　様</p>
+			<p>{{ normtategaki . }}　様</p>
 		{{ end }}
 	</div>
 	<div class="差出人住所氏名">
-		<p class="差出人住所">{{ noescape $.Sender.Address }}</p>
+		<p class="差出人住所">{{ parseaddress $.Sender.Address }}</p>
 		{{ range $.Sender.Names }}
-			<p class="差出人">{{ . }}</p>
+			<p class="差出人">{{ normtategaki . }}</p>
 		{{ end }}
 	</div>
 	<p class="差出人郵便番号">{{ $.Sender.Postcode }}</p>

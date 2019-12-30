@@ -6,12 +6,6 @@
 </head>
 <body>
 <style>
-	@font-face {
-		font-family: 'Noto Serif Japanese';
-		font-style: normal;
-		font-weight: 400;
-		src: url(https://lilac.myhome.cx/fonts/NotoSerifCJKjp-hinted/NotoSerifCJKjp-Light.otf) format('opentype');
-	}
 	@page {
 		size: 100mm 148mm;
 		margin: 0;
@@ -21,6 +15,9 @@
 	body {
 		margin: 0;
 		padding: 0;
+		font-family: 'HiraMinProN-W3', serif;
+		font-style: normal;
+		font-weight: 400;
 	}
 
 	.sheet {
@@ -39,7 +36,6 @@
 
 	.郵便番号 {
 		font-size: 12pt;
-		font-family: "Noto Serif Japanese";
 		margin: 0;
 		padding: 0;
 		position: absolute;
@@ -49,7 +45,6 @@
 	}
 
 	.住所 {
-		font-family: "Noto Serif Japanese";
 		font-size: 14pt;
 		margin-left: 0px;
 		padding-top: 0px;
@@ -65,7 +60,6 @@
 	}
 
 	.宛名 {
-		font-family: "Noto Serif Japanese";
 		font-size: 22pt;
 		letter-spacing: 0.1em;
 		position: absolute;
@@ -81,31 +75,29 @@
 
 	.差出人住所氏名 {
 		position: absolute;
-		top: 50mm;
-		left: 5mm;
+		top: 70mm;
+		left: 3mm;
 		writing-mode: vertical-rl;
 		-webkit-writing-mode: vertical-rl;
 		text-orientation: upright;
 		-webkit-text-orientation: upright;
+		line-height: 1.2em;
 	}
 
 	.差出人住所 {
-		font-family: "Noto Serif Japanese";
 		font-size: 10pt;
 		margin: 0;
 	}
 
 	.差出人 {
-		font-family: "Noto Serif Japanese";
 		font-size: 12pt;
 		letter-spacing: 0.1em;
 		margin: 0;
-		padding-top: 30mm;
+		padding-top: 10mm;
 	}
 
 	.差出人郵便番号 {
 		font-size: 10pt;
-		font-family: "Noto Serif Japanese";
 		margin: 0;
 		padding: 0;
 		position: absolute;
@@ -144,9 +136,11 @@
 	</div>
 	<div class="差出人住所氏名">
 		<p class="差出人住所">{{ noescape $.Sender.Address }}</p>
-		{{ range $.Sender.Names }}
-			<p class="差出人">{{ . }}</p>
-		{{ end }}
+		<p class="差出人">
+			{{ range $.Sender.Names }}
+				{{ . }}<br>
+			{{ end }}
+		</p>
 	</div>
 	<p class="差出人郵便番号">{{ $.Sender.Postcode }}</p>
 </section>

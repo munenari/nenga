@@ -13,7 +13,6 @@ select *
 from ` + AtenaTableName + ` a
 where a.is_sender = true
 and a.deleted = false
-order by a.inserted_at desc
 limit 1`
 	err := db.Get(x, q)
 	x.Address = convertAddress2EM(x.Address)

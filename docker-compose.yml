@@ -1,0 +1,26 @@
+version: "2"
+
+services:
+  api:
+    build:
+      context: docker/.
+      dockerfile: web.Dockerfile
+    restart: always
+    ports:
+    - "20080:80"
+    volumes:
+    - ${GOPATH}/pkg:/go/pkg:delegated
+    - ./:/code:delegated
+    links:
+    - db
+    environment:
+      - dbhost=db
+      - dbpassword=thisisunsafepassword
+      - dboptions=sslmode=disable
+  db:
+    build:
+      context: docker/.
+      dockerfile: db.Dockerfile
+    restart: always
+    ports:
+    - "20432:5432"

@@ -3,7 +3,6 @@ package model
 import (
 	"log"
 	"strings"
-	"time"
 
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
@@ -53,15 +52,14 @@ func (Nenga) Get(db *sqlx.DB) (*Nenga, error) {
 }
 
 type atenaAbstract struct {
-	ID         uuid.UUID      `db:"id"`
-	Names      pq.StringArray `db:"names"`
-	Postcode   string         `db:"postcode"`
-	Address    string         `db:"address"`
-	Deleted    bool           `db:"deleted"`
-	InsertedAt time.Time      `db:"inserted_at"`
-	IsSender   bool           `db:"is_sender"`
-	GroupName  string         `db:"group_name"`
-	Kind       int            `db:"kind"`
+	ID        uuid.UUID      `db:"id"`
+	Names     pq.StringArray `db:"names"`
+	Postcode  string         `db:"postcode"`
+	Address   string         `db:"address"`
+	Deleted   bool           `db:"deleted"`
+	IsSender  bool           `db:"is_sender"`
+	GroupName string         `db:"group_name"`
+	Kind      int            `db:"kind"`
 }
 
 func (ab *atenaAbstract) ConvertEM() {

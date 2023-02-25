@@ -40,12 +40,15 @@ func main() {
 }
 
 func initDB() {
+	// dbHost := os.Getenv("dbhost")
 	dbHost := flag.String("dbhost", "localhost", "db host name (default: localhost)")
 	dbPort := flag.Int("dbport", 5432, "db port (default: 5432)")
 	dbUser := flag.String("dbuser", "postgres", "db username (default: postgres)")
+	// dbPassword := os.Getenv("dbpassword")
 	dbPassword := flag.String("dbpassword", "", "db password")
 	dbName := flag.String("dbname", "nenga", "database name (default: nenga)")
 	dbTable := flag.String("dbtable", "ab_atena", "database table name (default: ab_atena)")
+	// dbOptions := os.Getenv("dboptions")
 	dbOptions := flag.String("dboptions", "", "db connection options (key=value), separated with space (default: none)")
 	flag.Parse()
 

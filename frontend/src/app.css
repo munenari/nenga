@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@plugin 'daisyui' {
+	themes: garden --default, sunset --prefersdark;
+}
+
+@plugin '@egoist/tailwindcss-icons' {
+	/* (material symbols) 24px / (font-size base) 16px */
+	scale: 1.5;
+}
+
+html,
+body {
+	width: 100svw;
+	height: 100svh;
+
+	font-family: sans-serif;
+	overflow: hidden;
+}

@@ -1,64 +1,38 @@
 package main
 
 import (
-	"flag"
-	"fmt"
-	"html/template"
-	"log"
-	"os"
-	"path/filepath"
+	"embed"
 
-	"github.com/jmoiron/sqlx"
-	_ "github.com/lib/pq"
-	"github.com/munenari/nenga/model"
+	"github.com/munenari/nenga/app"
+
+	"github.com/labstack/echo/v4"
+	"github.com/wailsapp/wails/v2"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
-var (
-	db *sqlx.DB
-)
-
-const nengaTpl = "resources/nenga.tpl"
+//go:embed all:frontend/build
+var assets embed.FS
 
 func main() {
-	initDB()
-
-	nenga := model.Nenga{}.MustGet(db)
-
-	funcMap := template.FuncMap{
-		"noescape": func(str string) template.HTML {
-			return template.HTML(str)
+	e := echo.New()
+	a := app.NewApp(e)
+	err := wails.Run(&options.App{
+		Title:  "nenga",
+		Width:  1024,
+		Height: 768,
+		AssetServer: &assetserver.Options{
+			Assets:  assets,
+			Handler: e,
 		},
-	}
-	tpl, err := template.New(filepath.Base(nengaTpl)).Funcs(funcMap).ParseFiles(nengaTpl)
+		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		OnStartup:        a.Startup,
+		OnShutdown:       a.Shutdown,
+		Bind: []any{
+			a,
+		},
+	})
 	if err != nil {
-		log.Fatalln(err)
+		println("Error:", err.Error())
 	}
-	err = tpl.Execute(os.Stdout, nenga)
-	if err != nil {
-		log.Fatalln(err)
-	}
-}
-
-func initDB() {
-	// dbHost := os.Getenv("dbhost")
-	dbHost := flag.String("dbhost", "localhost", "db host name (default: localhost)")
-	dbPort := flag.Int("dbport", 5432, "db port (default: 5432)")
-	dbUser := flag.String("dbuser", "postgres", "db username (default: postgres)")
-	// dbPassword := os.Getenv("dbpassword")
-	dbPassword := flag.String("dbpassword", "", "db password")
-	dbName := flag.String("dbname", "nenga", "database name (default: nenga)")
-	dbTable := flag.String("dbtable", "ab_atena", "database table name (default: ab_atena)")
-	// dbOptions := os.Getenv("dboptions")
-	dbOptions := flag.String("dboptions", "", "db connection options (key=value), separated with space (default: none)")
-	flag.Parse()
-
-	dataSource := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s %s",
-		*dbHost,
-		*dbPort,
-		*dbUser,
-		*dbPassword,
-		*dbName,
-		*dbOptions)
-	db = sqlx.MustConnect("postgres", dataSource)
-	model.AtenaTableName = *dbTable
 }

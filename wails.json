@@ -1,0 +1,20 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "nenga",
+  "outputfilename": "nenga",
+  "frontend:install": "pnpm install",
+  "frontend:build": "pnpm build",
+  "frontend:dev:watcher": "pnpm dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "munenari",
+    "email": "munenari@gmail.com"
+  },
+  "wailsjsdir": "./frontend/src",
+  "info": {
+    "companyName": "munenari",
+    "productVersion": "0.0.1",
+    "copyright": "munenari",
+    "comments": ""
+  }
+}

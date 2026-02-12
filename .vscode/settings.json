@@ -1,0 +1,32 @@
+{
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"files.exclude": {
+		"**/.git": true,
+		"**/.DS_Store": true,
+		"**/node_modules": false
+	},
+	"[javascript]": {
+		"files.insertFinalNewline": true,
+		"editor.insertSpaces": false,
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[typescript]": {
+		"files.insertFinalNewline": true,
+		"editor.insertSpaces": false,
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[svelte]": {
+		"files.insertFinalNewline": true,
+		"editor.insertSpaces": false,
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"prettier.documentSelectors": [
+		"**/*.svelte"
+	],
+	"vitest.disableWorkspaceWarning": true
+}
